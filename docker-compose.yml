@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  node:
+    image: node:18
+    user: node
+    volumes:
+      - ./:/app
+    working_dir: /app
+
+  server:
+    image: node:18-alpine
+    user: node
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: 'node ./server.mjs'
+    labels:
+      traefik.enable: 'true'
+      traefik.http.routers.module-federation-reproduction.rule: 'HostRegexp(`module-federation.reproduction.{[^.]+}`)'
+      traefik.http.routers.module-federation-reproduction.priority: 1
+      traefik.http.routers.module-federation-reproduction.service: module-federation-reproduction
+      traefik.http.services.module-federation-reproduction.loadbalancer.server.port: '80'

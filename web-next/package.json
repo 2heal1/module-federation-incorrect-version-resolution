@@ -1,0 +1,12 @@
+{
+  "name": "@services/next",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "tiny-emitter": "^2.1.0",
+    "webpack": "^5.89.0"
+  }
+}
