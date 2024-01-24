@@ -1,7 +1,8 @@
-const webpack = require('webpack')
+// const webpack = require('webpack')
 
 const CleanPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
 const ManifestPlugin = require('webpack-manifest-plugin').WebpackManifestPlugin
+const FederationPlugin = require('./build/plugins/container/ModuleFederationPlugin')
 
 const { dependencies } = require('./package.json')
 const path = require('path')
@@ -41,7 +42,7 @@ module.exports = {
       basePath: 'public/build-legacy/',
       writeToFileEmit: true,
     }),
-    new webpack.container.ModuleFederationPlugin({
+    new FederationPlugin({
       name: 'host',
       remoteType: 'var',
       remotes: {
