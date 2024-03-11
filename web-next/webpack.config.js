@@ -2,7 +2,7 @@ const webpack = require('webpack')
 
 const CleanPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
 const ManifestPlugin = require('webpack-manifest-plugin').WebpackManifestPlugin
-
+const { ModuleFederationPlugin } = require('@module-federation/enhanced')
 const { dependencies } = require('./package.json')
 const path = require('path')
 
@@ -22,7 +22,7 @@ module.exports = {
     chunkFilename: '[name].[fullhash].js',
     path: path.resolve(__dirname, '../public/build-next/'),
     pathinfo: true,
-    publicPath: '/public/build-next/',
+    publicPath: 'http://localhost:8080/public/build-next/',
   },
 
   resolve: {
@@ -39,7 +39,7 @@ module.exports = {
       basePath: 'public/build-next/',
       writeToFileEmit: true,
     }),
-    new webpack.container.ModuleFederationPlugin({
+    new ModuleFederationPlugin({
       name: 'remote',
       filename: '[name].[fullhash].js',
       library: { type: 'var', name: 'buildNext' },

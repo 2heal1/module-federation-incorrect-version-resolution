@@ -10,6 +10,7 @@
     "build:next": "yarn workspace @services/next run build"
   },
   "dependencies": {
+    "@module-federation/enhanced": "0.0.15",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.35.1",
     "cors": "^2.8.5",

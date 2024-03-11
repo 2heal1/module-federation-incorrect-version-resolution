@@ -2,6 +2,7 @@ const webpack = require('webpack')
 
 const CleanPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
 const ManifestPlugin = require('webpack-manifest-plugin').WebpackManifestPlugin
+const { ModuleFederationPlugin } = require('@module-federation/enhanced')
 
 const { dependencies } = require('./package.json')
 const path = require('path')
@@ -24,7 +25,7 @@ module.exports = {
     chunkFilename: '[name].[fullhash].js',
     path: path.resolve(__dirname, './public/build-legacy/'),
     pathinfo: true,
-    publicPath: '/public/build-legacy/',
+    publicPath: 'http://localhost:8080/public/build-legacy/',
   },
 
   resolve: {
@@ -41,11 +42,11 @@ module.exports = {
       basePath: 'public/build-legacy/',
       writeToFileEmit: true,
     }),
-    new webpack.container.ModuleFederationPlugin({
+    new ModuleFederationPlugin({
       name: 'host',
-      remoteType: 'var',
+      remoteType: 'script',
       remotes: {
-        buildNext: 'buildNext',
+        buildNext: 'buildNext@http://localhost:8080/build-next/mf-manifest.json',
       },
       shared: {
         'tiny-emitter': {

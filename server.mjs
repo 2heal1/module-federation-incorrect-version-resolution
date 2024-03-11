@@ -26,6 +26,9 @@ const readManifest = (path) => {
 
 app.use(cors())
 app.use('/public', express.static(path.join(__dirname, '/public')))
+app.use('/build-next/mf-manifest.json', function(req, res){
+    res.sendFile(path.join(__dirname, '/public/build-next/mf-manifest.json'));
+})
 
 app.get('/', async (_, response) => {
     const manifestLegacy = await readManifest(path.join(__dirname, '/public/build-legacy/manifest.json'))
@@ -37,10 +40,12 @@ app.get('/', async (_, response) => {
     <meta charset="UTF-8">
     <title>module-federation-reproduction</title>
     <script src="${manifestLegacy['public/build-legacy/runtime.js']}"></script>
+    <script src="${manifestLegacy['public/build-legacy/vendor.js']}"></script>
     <script src="${manifestLegacy['public/build-legacy/tiny-emitter.js']}"></script>
     <script src="${manifestNext['public/build-next/runtime.js']}"></script>
     <script src="${manifestNext['public/build-next/remote.js']}"></script>
     <script src="${manifestLegacy['public/build-legacy/app.js']}"></script>
+    <script src="${manifestLegacy['public/build-legacy/vendor.js']}"></script>
 </head>
 <body>
 <h1>module-federation-reproduction</h1>
