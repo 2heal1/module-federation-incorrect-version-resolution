@@ -25,7 +25,7 @@ module.exports = {
     chunkFilename: '[name].[fullhash].js',
     path: path.resolve(__dirname, './public/build-legacy/'),
     pathinfo: true,
-    publicPath: 'http://localhost:8080/public/build-legacy/',
+    publicPath: '/public/build-legacy/',
   },
 
   resolve: {
@@ -46,7 +46,7 @@ module.exports = {
       name: 'host',
       remoteType: 'script',
       remotes: {
-        buildNext: 'buildNext@http://localhost:8080/build-next/mf-manifest.json',
+        buildNext: 'buildNext@/build-next/mf-manifest.json',
       },
       shared: {
         'tiny-emitter': {

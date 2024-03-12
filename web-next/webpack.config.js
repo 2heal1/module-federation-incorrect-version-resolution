@@ -22,7 +22,7 @@ module.exports = {
     chunkFilename: '[name].[fullhash].js',
     path: path.resolve(__dirname, '../public/build-next/'),
     pathinfo: true,
-    publicPath: 'http://localhost:8080/public/build-next/',
+    publicPath: '/public/build-next/',
   },
 
   resolve: {
