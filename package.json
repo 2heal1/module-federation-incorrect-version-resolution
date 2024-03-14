@@ -7,10 +7,15 @@
   ],
   "scripts": {
     "build:legacy": "webpack",
-    "build:next": "yarn workspace @services/next run build"
+    "build:next": "yarn workspace @services/next run build",
+    "build:server":"webpack --config ./webpack.server.config.js",
+    "build": "yarn build:legacy && yarn build:next && yarn build:server",
+    "serve": "SERVER_PORT=8080 node dist/main.js"
   },
   "dependencies": {
     "@module-federation/enhanced": "0.0.15",
+    "@module-federation/runtime": "^0.0.16",
+    "@module-federation/sdk": "^0.0.16",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.35.1",
     "cors": "^2.8.5",

@@ -1475,10 +1475,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@module-federation/runtime@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@module-federation/runtime@npm:0.0.16"
+  dependencies:
+    "@module-federation/sdk": 0.0.16
+  checksum: 86c99058440c084a154001031681eeb38f142f8ced54154fbe27ba6aa7a2c866026c512ba3f01e0e22f8626771e7938edee2470f3ef2cc10ed3ceac9fb686526
+  languageName: node
+  linkType: hard
+
 "@module-federation/sdk@npm:0.0.15":
   version: 0.0.15
   resolution: "@module-federation/sdk@npm:0.0.15"
   checksum: e2f2732dd326ccd7b72a189ebeac03a2bc2e72a182ce6f45af8ab7569f235308614b7909a7aa2fe26e282b909165761204036614f4bcf65fd7539d6028a42a44
+  languageName: node
+  linkType: hard
+
+"@module-federation/sdk@npm:0.0.16, @module-federation/sdk@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@module-federation/sdk@npm:0.0.16"
+  checksum: 2a2da1993559123e1d933f3a842b9b9146e20bfd1d5bfa97a5c15b64e978ccd0980292d0cd4e7982ef38d4308ffd15ebe01fd1d991ea5d96fa42e859590dfb61
   languageName: node
   linkType: hard
 
@@ -3516,6 +3532,8 @@ __metadata:
     "@babel/plugin-transform-classes": ^7.23.8
     "@babel/preset-env": ^7.23.8
     "@module-federation/enhanced": 0.0.15
+    "@module-federation/runtime": ^0.0.16
+    "@module-federation/sdk": ^0.0.16
     "@types/webpack": ^5.28.5
     babel-loader: ^9.1.3
     clean-webpack-plugin: ^4.0.0

@@ -8,6 +8,7 @@
 !.yarn/sdks
 !.yarn/versions
 !.yarnrc.yml.dist
+dist
 
 node_modules
 

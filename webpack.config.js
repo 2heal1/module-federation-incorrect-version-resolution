@@ -46,7 +46,8 @@ module.exports = {
       name: 'host',
       remoteType: 'script',
       remotes: {
-        buildNext: 'buildNext@/build-next/mf-manifest.json',
+        // if use manifest , just use remoteName@manifest.json
+        buildNext: 'remote@/build-next/mf-manifest.json',
       },
       shared: {
         'tiny-emitter': {
@@ -55,6 +56,7 @@ module.exports = {
           requiredVersion: dependencies['tiny-emitter'],
         },
       },
+      runtimePlugins:[require.resolve('./runtimePlugin')]
     }),
   ],
 

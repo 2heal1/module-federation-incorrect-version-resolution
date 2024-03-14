@@ -3,10 +3,24 @@ import express from 'express'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import {generateSnapshotFromManifest,composeKeyWithSeparator} from '@module-federation/sdk';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
 const app = express()
+
+const generateSnapshot = async ()=>{
+    const hostManifest = await readManifest(path.join(__dirname, '/public/build-legacy/mf-manifest.json'));
+    const hostSnapshot = generateSnapshotFromManifest(hostManifest);
+    const remoteManifest = await readManifest(path.join(__dirname, '/public/build-next/mf-manifest.json'))
+    const remoteSnapshot = generateSnapshotFromManifest(remoteManifest);
+
+    const remoteMatchedVersion = hostSnapshot.remotesInfo[remoteManifest.name].matchedVersion
+
+    return {
+        [hostManifest.name]: hostSnapshot,
+        [composeKeyWithSeparator(remoteManifest.name,remoteMatchedVersion)]: remoteSnapshot,
+    }
+}
 
 const readManifest = (path) => {
     return new Promise((resolve) => {
@@ -32,13 +46,14 @@ app.use('/build-next/mf-manifest.json', function(req, res){
 
 app.get('/', async (_, response) => {
     const manifestLegacy = await readManifest(path.join(__dirname, '/public/build-legacy/manifest.json'))
-    const manifestNext = await readManifest(path.join(__dirname, '/public/build-next/manifest.json'))
-
+    const manifestNext = await readManifest(path.join(__dirname, '/public/build-next/manifest.json'));
+    const mfSnapshot = await generateSnapshot();
     response.send(`<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>module-federation-reproduction</title>
+    <script id='mf-snapshot' type='application/json'>${JSON.stringify(mfSnapshot)}</script>
     <script src="${manifestLegacy['public/build-legacy/runtime.js']}"></script>
     <script src="${manifestLegacy['public/build-legacy/vendor.js']}"></script>
     <script src="${manifestLegacy['public/build-legacy/tiny-emitter.js']}"></script>
